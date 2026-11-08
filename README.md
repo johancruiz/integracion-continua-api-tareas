@@ -47,19 +47,3 @@ En Postman, usa el método POST para crear la tarea y selecciona **Body → raw 
 | Ruta para comprobar la conexión | `GET /salud` |
 
 En Docker, cambia el host de `REDIS_URL` si el servicio de datos recibe otro nombre. La API escucha en `0.0.0.0` para recibir solicitudes por el puerto que publique Docker. Para la demostración, muestra un POST exitoso y el mismo título en el GET o en `redis-cli LRANGE tareas 0 -1` dentro del contenedor de Redis.
-
-## Subir el primer commit a GitHub
-
-Crea un repositorio vacío en [GitHub](https://github.com/new), por ejemplo `integracion-continua-api-tareas`. Deja desactivada la creación inicial de README y `.gitignore` porque ya están en esta carpeta. Acuerda la visibilidad con el equipo y asegúrate de que Edward pueda abrir el enlace para revisar la entrega.
-
-Desde la carpeta que contiene `package.json`, sustituye `TU_USUARIO` por el propietario del repositorio:
-
-```sh
-git init -b main
-git add src package.json package-lock.json tsconfig.json README.md .gitignore
-git commit -m "Agrega API de tareas en TypeScript con Redis"
-git remote add origin https://github.com/TU_USUARIO/integracion-continua-api-tareas.git
-git push -u origin main
-```
-
-Si ya subiste la versión en Python, abre una rama de trabajo, retira `app.py` y `requirements.txt` y agrega los archivos de este paquete. Comparte el enlace con tus compañeros para que puedan subir sus aportes y abrir sus pull requests.
