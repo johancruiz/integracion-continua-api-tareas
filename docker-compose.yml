@@ -1,0 +1,49 @@
+
+services:
+  # Servicio 1: Base de datos Redis
+  redis:
+    image: redis:7-alpine
+    container_name: contenedor_redis
+    restart: unless-stopped
+
+    volumes:
+      - redis_data:/data
+
+    networks:
+      - app-net
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # Servicio 2: API de tareas
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: contenedor_api
+    restart: unless-stopped
+
+    environment:
+      PORT: 8000
+      REDIS_URL: redis://redis:6379/0
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      redis:
+        condition: service_healthy
+
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge
+
+volumes:
+  redis_data:
